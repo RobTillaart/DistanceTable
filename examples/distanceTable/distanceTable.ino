@@ -4,19 +4,27 @@
 // VERSION: 0.1.00
 // PURPOSE: demo of memory efficient distance table class
 //    DATE: 2015-06-18
-//     URL: 
-//
-// Released to the public domain
+//     URL: https://github.com/RobTillaart/DistanceTable
 //
 
-#include <DistanceTable.h>
 
+#include "DistanceTable.h"
+
+
+#if defined (ARDUINO_ARCH_AVR)
 uint32_t freeRam()
 {
   extern int __heap_start, *__brkval;
   int v;
   return (uint32_t) &v - (__brkval == 0 ? (uint32_t) &__heap_start : (uint32_t) __brkval);
 };
+#else
+uint32_t freeRam()
+{
+  return -1;
+};
+#endif
+
 
 DistanceTable dt(20);
 
