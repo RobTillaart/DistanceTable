@@ -42,7 +42,7 @@ unittest(test_constructor)
   
   for (int i = 0; i < 12; i += 4)
   {
-    for int j = i+1; j < 12; j += 3)
+    for (int j = i+1; j < 12; j += 3)
     {
       dt.set(i, j, i * j);
       assertEqual(i * j, dt.get(i, j));
@@ -53,7 +53,7 @@ unittest(test_constructor)
   dt.clear();
   for (int i = 0; i < 12; i += 4)
   {
-    for int j = i+1; j < 12; j += 3)
+    for (int j = i+1; j < 12; j += 3)
     {
       assertEqual(0, dt.get(j, i));
     }
