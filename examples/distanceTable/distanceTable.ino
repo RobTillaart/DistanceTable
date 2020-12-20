@@ -9,7 +9,7 @@
 // Released to the public domain
 //
 
-#include "DistanceTable.h"
+#include <DistanceTable.h>
 
 uint32_t freeRam()
 {
