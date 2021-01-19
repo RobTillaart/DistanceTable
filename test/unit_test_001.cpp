@@ -51,8 +51,8 @@ unittest(test_constructor)
   fprintf(stderr, "%s\n", DISTANCETABLE_LIB_VERSION);
   
   assertEqual(12, dt.dimension());
-  assertEqual(66, dt.elements());
-  assertEqual(264, dt.memoryUsed());
+  assertEqual(60, dt.elements());
+  assertEqual(240, dt.memoryUsed());
   
   for (int i = 0; i < 12; i += 4)
   {
