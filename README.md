@@ -3,9 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/Distancetable/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/RobTillaart/Distancetable.svg?maxAge=3600)](https://github.com/RobTillaart/Distancetable/releases)
 
+
 # Distancetable
 
 Arduino library to store a symmetrical distance table in less memory.
+
 
 ## Description
 
@@ -20,29 +22,35 @@ where it typically would take 900 x 4 = 3600 bytes.
 
 Within the 2K RAM of an Arduino one could store normally a 21 x 21 matrix (1764 bytes).
 
+
 ## Interface
 
-- **explicit DistanceTable(uint8_t size)** Constructor, allocates memory
-- **~DistanceTable();** Destructor
-
+- **DistanceTable(uint8_t size)** Constructor, allocates memory and clears them.
+- **~DistanceTable();** Destructor, frees memory
 - **void clear()** sets all entries to 0.0.
-- **void set(uint8_t x, uint8_t y, float value )** sets a value
-- **float get(uint8_t x, uint8_t y)** gets a value
-- **void dump();
-- **uint16_t size()** returns memory used, not the dimension.
+- **void setAll(value)** sets all entries to value;
+- **void set(uint8_t x, uint8_t y, float value )** sets a value for (x,y) and automatically for (y, x)
+- **float get(uint8_t x, uint8_t y)** gets a value from (x,y). If x == y it will return 0.
+- **float minimum(uint8_t &x, uint8_t &y)** Returns minimum and first occurence in x and y. It does skip x == y pairs as these are 0.
+- **float maximum(uint8_t &x, uint8_t &y)** Returns maximum and first occurence in x and y. It does skip x == y pairs as these are 0.
+- **uint16_t count(value, epsilon)** counts the number of occurences of value. As we are comparing floats the epsilon can set a margin for 'almost equal'.
+
+
+
+### Debug
+
+- **void dump(Print \* stream = &Serial)** dumps distance table , default to serial.
+- **uint8_t dimension()** dimension of the table == parameter in constructor.
+- **uint16_t elements()** amount of elements allocated.
+- **uint16_t memoryUsed()** amount of memory used.
 
 
 ## Future
 
-- dump(stream = Serial); allow other streams
-- getDimension() => returns one side
-- getStorage()   => returns allocated memory for the table.
-- check size parameter in constructor > 1.
-- count(value == 0) count # occurences
-- max() maximum
-- min() minimum   0 and negative values?
+- **count()** could get an epsilon to count also nearly hits (default 0.0);
+- **clear()** could set all to NAN? is that better as it iindicates unknown?  
+  setAll() let the user decide.
 
-- size() should become obsolete.
 
 Note: table can be used for other symmetrical 2D tables. And therefor include 
 negative values.
