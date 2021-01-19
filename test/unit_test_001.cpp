@@ -50,7 +50,9 @@ unittest(test_constructor)
   DistanceTable dt(12);
   fprintf(stderr, "%s\n", DISTANCETABLE_LIB_VERSION);
   
-  assertEqual(60, dt.size());
+  assertEqual(12, dt.dimension());
+  assertEqual(66, dt.elements());
+  assertEqual(264, dt.memoryUsed());
   
   for (int i = 0; i < 12; i += 4)
   {
