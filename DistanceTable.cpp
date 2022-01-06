@@ -130,7 +130,8 @@ float DistanceTable::minimum(uint8_t &x, uint8_t &y)
   {
     for (uint8_t j = 0; j <  i; j++)
     {
-      index = (i * (i-1)/2 + j);
+      index = i;
+      index = (index * (index-1)/2 + j);
       float value = _distanceTable[index];
       if (value < mi)
       {
