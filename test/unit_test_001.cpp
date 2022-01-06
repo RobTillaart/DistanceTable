@@ -75,6 +75,58 @@ unittest(test_constructor)
 }
 
 
+unittest(test_min_max)
+{
+  DistanceTable dt(12);
+
+  for (int i = 0; i < 12; i += 4)
+  {
+    for (int j = i + 1; j < 12; j += 3)
+    {
+      dt.set(i, j, i * j);
+    }
+  }
+
+  uint8_t x, y;
+
+  fprintf(stderr, "CNT: %d\n", dt.count());
+  fprintf(stderr, "MIN: %d\t", dt.minimum(x, y));
+  fprintf(stderr, "%d\t", x);
+  fprintf(stderr, "%d\n", y);
+  fprintf(stderr, "MAX: %d\n", dt.maximum(x, y));
+  fprintf(stderr, "%d\t", x);
+  fprintf(stderr, "%d\n", y);
+}
+
+
+
+unittest(test_invert)
+{
+  DistanceTable dt(12);
+
+  assertFalse(dt.getInvert());
+  dt.setInvert(true);
+  assertTrue(dt.getInvert());
+  dt.setInvert();
+  assertFalse(dt.getInvert());
+  dt.setInvert(true);
+
+  dt.set(3, 2, 10);
+  assertEqualFloat( 10, dt.get(3, 2), 0.001);
+  assertEqualFloat(-10, dt.get(2, 3), 0.001);
+
+  dt.setAll(25);
+  assertEqualFloat( 25, dt.get(3, 2), 0.001);
+  assertEqualFloat(-25, dt.get(2, 3), 0.001);
+
+  dt.set(2, 3, 10);
+  assertEqualFloat(-10, dt.get(3, 2), 0.001);
+  assertEqualFloat( 10, dt.get(2, 3), 0.001);
+}
+
+
+
+
 unittest_main()
 
 // --------

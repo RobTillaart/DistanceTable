@@ -42,6 +42,21 @@ It does skip x == y pairs as these are 0.
 As we are comparing floats the epsilon can set a margin for 'almost equal'.
 
 
+### Invert (experimental)
+
+The invert flag tells that get(x, y) == -get(y, x);
+- **void setInvert(bool invert = false)**
+- **bool getInvert()**
+
+
+#### TODO
+
+- affects get set
+- affects count ?
+- affects minimum and maximum
+- affects dump?
+
+
 ### Debug
 
 - **void dump(Print \* stream = &Serial)** dumps distance table , default to serial.

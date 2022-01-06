@@ -1,7 +1,7 @@
 //
 //    FILE: DistanceTable.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.1
+// VERSION: 0.2.3
 // PURPOSE: Arduino library to store a symmetrical distance table in less memory
 //     URL: https://github.com/RobTillaart/DistanceTable
 
@@ -18,6 +18,9 @@
 //                      add setAll(), minimum(), maximum() and count()
 //  0.2.1   2021-10-26  update build-CI, update readme.md
 //                      default value in constructor
+//  0.2.2   2021-12-17  update license, readme, minor edits
+//  0.2.3   2022-01-06  add invert flag
+
 
 
 #include "DistanceTable.h"
@@ -41,6 +44,7 @@ DistanceTable::DistanceTable(uint8_t dimension, float value)
     _elements  = 0;
   }
   setAll(value);
+  _invert = false;
 }
 
 
@@ -71,6 +75,7 @@ void DistanceTable::set(uint8_t x, uint8_t y, float value )
   if ( x < y )
   {
     uint8_t t = x; x = y; y = t;  // swap
+    if (_invert) value = -value;
   }
   // prevent overflow by moving to 16 bit
   uint16_t index = x;
@@ -81,6 +86,7 @@ void DistanceTable::set(uint8_t x, uint8_t y, float value )
 
 float DistanceTable::get (uint8_t x, uint8_t y)
 {
+  bool flag = false;
   if ( x == y ) return 0.0;  // TODO even true when x and y are out of range??
   // comment next line to skip range check (squeeze performance)
   if ( (x >= _dimension) || (y >= _dimension)) return -1;  // NAN ?
@@ -88,10 +94,13 @@ float DistanceTable::get (uint8_t x, uint8_t y)
   if ( x < y )
   {
     uint8_t t = x; x = y; y = t;
+    flag = true;
   }
   uint16_t index = x;
   index = (index * (index-1))/2 + y;
-  return _distanceTable[index];
+  float value = _distanceTable[index];
+  if (_invert && flag) value = -value;
+  return value;
 };
 
 
