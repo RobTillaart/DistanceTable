@@ -99,7 +99,7 @@ unittest(test_invert)
   assertEqualFloat( 10, dt.get(2, 3), 0.001);
 }
 
-
+/*
 unittest(test_min_max)
 {
   DistanceTable dt(12);
@@ -124,7 +124,7 @@ unittest(test_min_max)
 
   // todo 
 }
-
+*/
 
 
 

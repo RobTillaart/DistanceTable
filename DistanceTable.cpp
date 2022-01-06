@@ -125,25 +125,6 @@ void DistanceTable::dump(Print * stream)
 float DistanceTable::minimum(uint8_t &x, uint8_t &y)
 {
   float mi = _distanceTable[0];
-  uint16_t index = 0;
-  for (uint8_t i = 1; i < _dimension; i++)
-  {
-    for (uint8_t j = 0; j <  i; j++)
-    {
-      index = i;
-      index = (index * (index-1)/2 + j);
-      float value = _distanceTable[index];
-      if (value < mi)
-      {
-        mi = value;
-        x = i;
-        y = j;
-      }
-    }
-  }
-  return mi;
-  /*
-  float mi = _distanceTable[0];
   for (uint8_t xx = 1; xx < _dimension; xx++)
   {
     uint16_t index = (xx * (xx - 1))/2;
@@ -159,7 +140,6 @@ float DistanceTable::minimum(uint8_t &x, uint8_t &y)
     }
   }
   return mi;
-  */
 }
 
 
