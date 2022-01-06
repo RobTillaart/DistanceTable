@@ -89,7 +89,7 @@ unittest(test_min_max)
 
   uint8_t x, y;
 
-  fprintf(stderr, "CNT: %d\n", dt.count());
+  fprintf(stderr, "CNT: %d\n", dt.count(30, 0.001));
   fprintf(stderr, "MIN: %f\t", dt.minimum(x, y));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "%d\n", y);
