@@ -90,12 +90,14 @@ unittest(test_min_max)
   uint8_t x, y;
 
   fprintf(stderr, "CNT: %d\n", dt.count());
-  fprintf(stderr, "MIN: %d\t", dt.minimum(x, y));
+  fprintf(stderr, "MIN: %f\t", dt.minimum(x, y));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "%d\n", y);
-  fprintf(stderr, "MAX: %d\n", dt.maximum(x, y));
+  fprintf(stderr, "MAX: %f\n", dt.maximum(x, y));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "%d\n", y);
+
+  // todo 
 }
 
 

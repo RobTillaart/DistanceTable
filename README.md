@@ -48,13 +48,14 @@ The invert flag tells that get(x, y) == -get(y, x);
 - **void setInvert(bool invert = false)**
 - **bool getInvert()**
 
+Note: the invert flag affects the **count()**, **minimum()** and **maximum()** functions, and to lesser extend the **dump()** function. 
 
 #### TODO
 
-- affects get set
-- affects count ?
-- affects minimum and maximum
-- affects dump?
+- count
+- minimum and maximum
+- dump
+- unit test 
 
 
 ### Debug
