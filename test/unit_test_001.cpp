@@ -75,6 +75,31 @@ unittest(test_constructor)
 }
 
 
+unittest(test_invert)
+{
+  DistanceTable dt(12);
+
+  assertFalse(dt.getInvert());
+  dt.setInvert(true);
+  assertTrue(dt.getInvert());
+  dt.setInvert();
+  assertFalse(dt.getInvert());
+  dt.setInvert(true);
+
+  dt.set(3, 2, 10);
+  assertEqualFloat( 10, dt.get(3, 2), 0.001);
+  assertEqualFloat(-10, dt.get(2, 3), 0.001);
+
+  dt.setAll(25);
+  assertEqualFloat( 25, dt.get(3, 2), 0.001);
+  assertEqualFloat(-25, dt.get(2, 3), 0.001);
+
+  dt.set(2, 3, 10);
+  assertEqualFloat(-10, dt.get(3, 2), 0.001);
+  assertEqualFloat( 10, dt.get(2, 3), 0.001);
+}
+
+
 unittest(test_min_max)
 {
   DistanceTable dt(12);
@@ -100,31 +125,6 @@ unittest(test_min_max)
   // todo 
 }
 
-
-
-unittest(test_invert)
-{
-  DistanceTable dt(12);
-
-  assertFalse(dt.getInvert());
-  dt.setInvert(true);
-  assertTrue(dt.getInvert());
-  dt.setInvert();
-  assertFalse(dt.getInvert());
-  dt.setInvert(true);
-
-  dt.set(3, 2, 10);
-  assertEqualFloat( 10, dt.get(3, 2), 0.001);
-  assertEqualFloat(-10, dt.get(2, 3), 0.001);
-
-  dt.setAll(25);
-  assertEqualFloat( 25, dt.get(3, 2), 0.001);
-  assertEqualFloat(-25, dt.get(2, 3), 0.001);
-
-  dt.set(2, 3, 10);
-  assertEqualFloat(-10, dt.get(3, 2), 0.001);
-  assertEqualFloat( 10, dt.get(2, 3), 0.001);
-}
 
 
 
