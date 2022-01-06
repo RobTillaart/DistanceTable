@@ -126,11 +126,12 @@ float DistanceTable::minimum(uint8_t &x, uint8_t &y)
 {
   float mi = _distanceTable[0];
   uint16_t index = 0;
-  for (uint8_t i = 0; i < _dimension - 1; i++)
+  for (uint8_t i = 1; i < _dimension; i++)
   {
-    for (uint8_t j = 0; j <= i; j++)
+    for (uint8_t j = 0; j <  i; j++)
     {
-      float value = _distanceTable[index++];
+      index = (i * (i-1)/2 + j);
+      float value = _distanceTable[index];
       if (value < mi)
       {
         mi = value;
