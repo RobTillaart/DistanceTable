@@ -1,7 +1,7 @@
 //
 //    FILE: DistanceTable.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.3
+// VERSION: 0.3.0
 // PURPOSE: Arduino library to store a symmetrical distance table in less memory
 //     URL: https://github.com/RobTillaart/DistanceTable
 
@@ -19,7 +19,9 @@
 //  0.2.1   2021-10-26  update build-CI, update readme.md
 //                      default value in constructor
 //  0.2.2   2021-12-17  update license, readme, minor edits
-//  0.2.3   2022-01-06  add invert flag
+//  0.3.0   2022-01-06  add invert flag, add unit tests
+//                      fix allocation + # elements
+// 
 
 
 
