@@ -35,8 +35,7 @@ DistanceTable::DistanceTable(uint8_t dimension, float value)
   if (dimension < 2) return;
 
   _dimension = dimension;
-  _elements = _dimension;
-  _elements *= ((_dimension - 1) / 2);
+  _elements = (_dimension * (_dimension - 1)) / 2;
   _distanceTable = (float *) malloc(_elements * sizeof(float));
   if (_distanceTable == NULL)
   {
@@ -125,7 +124,7 @@ void DistanceTable::dump(Print * stream)
 float DistanceTable::minimum(uint8_t &x, uint8_t &y)
 {
   float mi = _distanceTable[0];
-  for (uint8_t xx = 1; xx < _dimension; xx++)
+  for (uint8_t xx = 0; xx < _dimension - 1; xx++)
   {
     uint16_t index = (xx * (xx - 1))/2;
     for (uint8_t yy = 0; yy < xx; yy++)
