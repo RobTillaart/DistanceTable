@@ -136,9 +136,9 @@ unittest(test_min_max)
 {
   DistanceTable dt(12);
 
-  for (int i = 0; i < 12; i += 4)
+  for (int i = 0; i < 12; i++)
   {
-    for (int j = i + 1; j < 12; j += 3)
+    for (int j = i + 1; j < 12; j++)
     {
       dt.set(i, j, i * j);
     }
@@ -150,7 +150,7 @@ unittest(test_min_max)
   fprintf(stderr, "MIN: %f\t", dt.minimum(x, y));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "%d\n", y);
-  fprintf(stderr, "MAX: %f\n", dt.maximum(x, y));
+  fprintf(stderr, "MAX: %f\t", dt.maximum(x, y));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "%d\n", y);
 
