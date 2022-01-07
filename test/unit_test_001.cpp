@@ -56,13 +56,13 @@ unittest(test_constructor)
 
   DistanceTable dt1(1);
 
-  assertEqual(0, dt1.dimension());
+  assertEqual(1, dt1.dimension());
   assertEqual(0, dt1.elements());
   assertEqual(0, dt1.memoryUsed());
 
   DistanceTable dt2(2);
 
-  assertEqual(0, dt2.dimension());
+  assertEqual(2, dt2.dimension());
   assertEqual(1, dt2.elements());
   assertEqual(4, dt2.memoryUsed());
 
@@ -85,10 +85,6 @@ unittest(test_get_set_clear)
 {
   DistanceTable dt(12);
 
-  assertEqual(12, dt.dimension());
-  assertEqual(66, dt.elements());
-  assertEqual(264, dt.memoryUsed());
-
   for (int i = 0; i < 12; i += 4)
   {
     for (int j = i + 1; j < 12; j += 3)
@@ -99,6 +95,7 @@ unittest(test_get_set_clear)
     }
   }
 
+  fprintf(stderr, "\n");
   dt.clear();
   for (int i = 0; i < 12; i += 4)
   {
