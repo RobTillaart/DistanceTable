@@ -17,6 +17,8 @@ getInvert	KEYWORD2
 minimum	KEYWORD2
 maximum	KEYWORD2
 count	KEYWORD2
+countAbove	KEYWORD2
+countBelow	KEYWORD2
 
 dump	KEYWORD2
 dimension	KEYWORD2
