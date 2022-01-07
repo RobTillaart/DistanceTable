@@ -32,11 +32,12 @@ DistanceTable::DistanceTable(uint8_t dimension, float value)
 {
   // ATMEL 328 has ~2000 bytes RAM,
   // so roughly 30X30 = 900 floats(4Bytes) => 1740 bytes is max feasible
-  _dimension = 0;
-  _elements  = 0;
-  if (dimension < 2) return;
-
+  _invert = false;
+  _distanceTable = NULL;
   _dimension = dimension;
+  _elements  = 0;
+
+  if (dimension < 2) return;
   _elements = (_dimension * (_dimension - 1)) / 2;
   _distanceTable = (float *) malloc(_elements * sizeof(float));
   if (_distanceTable == NULL)
@@ -45,7 +46,6 @@ DistanceTable::DistanceTable(uint8_t dimension, float value)
     _elements  = 0;
   }
   setAll(value);
-  _invert = false;
 }
 
 
