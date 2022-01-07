@@ -8,20 +8,21 @@
 //  HISTORY
 //  0.1.00  initial version
 //  0.1.01  refactor
-//  0.1.2   fix overflow;  add some error detection;  revert float to float to memory
+//  0.1.2   fix overflow;  add some error detection; revert float to float to memory
 //  0.1.3   2017-07-27  Fix issue #33
 //  0.1.4   2019-01-10  add size()
 //  0.1.5   2020-06-07  fix library.json, minor edits
-//  0.1.6   2020-12-20  arduino-ci + unit test
+//  0.1.6   2020-12-20  Arduino-CI + unit test
 //  0.2.0   2021-01-19  refactor
-//                      properly named functions, 
+//                      properly named functions,
 //                      add setAll(), minimum(), maximum() and count()
 //  0.2.1   2021-10-26  update build-CI, update readme.md
 //                      default value in constructor
 //  0.2.2   2021-12-17  update license, readme, minor edits
 //  0.3.0   2022-01-06  add invert flag, add unit tests
+//                      add countAbove(), countBelow()
 //                      fix allocation + # elements
-// 
+
 
 
 
@@ -109,12 +110,11 @@ float DistanceTable::get (uint8_t x, uint8_t y)
 void DistanceTable::dump(Print * stream)
 {
   stream->println();
-  uint16_t index = 0;
-  for (uint8_t i = 0; i < _dimension - 1; i++)
+  for (uint8_t i = 0; i < _dimension; i++)
   {
-    for (uint8_t j = 0; j <= i; j++)
+    for (uint8_t j = 0; j <_dimension; j++)
     {
-      stream->print(_distanceTable[index++]);
+      stream->print(get(i, j));
       stream->print("\t");
     }
     stream->println();
@@ -128,7 +128,7 @@ float DistanceTable::minimum(uint8_t &x, uint8_t &y)
   float mi = _distanceTable[0];
   x = 0;
   y = 0;
-  for (uint8_t xx = 0; xx < _dimension - 1; xx++)
+  for (uint8_t xx = 1; xx < _dimension; xx++)
   {
     uint16_t index = (xx * (xx - 1))/2;
     for (uint8_t yy = 0; yy < xx; yy++)
@@ -139,6 +139,16 @@ float DistanceTable::minimum(uint8_t &x, uint8_t &y)
         mi = value;
         x = xx;
         y = yy;
+      }
+      else if (_invert)
+      {
+        value = -value;
+        if (value < mi)
+        {
+          mi = value;
+          x = yy;
+          y = xx;
+        }
       }
     }
   }
@@ -163,6 +173,16 @@ float DistanceTable::maximum(uint8_t &x, uint8_t &y)
         x = xx;
         y = yy;
       }
+      else if (_invert)
+      {
+        value = -value;
+        if (value > ma)
+        {
+          ma = value;
+          x = yy;
+          y = xx;
+        }
+      }
     }
   }
   return ma;
@@ -174,9 +194,49 @@ uint16_t DistanceTable::count(float value, float epsilon)
   uint16_t cnt = 0;
   for (uint16_t index = 0; index < _elements; index++)
   {
-    if (abs (_distanceTable[index] - value) < epsilon) cnt++;
+    float current = _distanceTable[index];
+    if (abs (current - value) < epsilon) cnt++;
+    else if (_invert)
+    {
+      if (abs (current + value) < epsilon) cnt++;
+    }
   }
-  return cnt;
+  if (_invert) return cnt;
+  return cnt * 2;  // count the symmetrical elements too.
+}
+
+
+uint16_t DistanceTable::countAbove(float value)
+{
+  uint16_t cnt = 0;
+  for (uint16_t index = 0; index < _elements; index++)
+  {
+    float current = _distanceTable[index];
+    if (current > value) cnt++;
+    else if (_invert)
+    {
+      if (-current > value) cnt++;
+    }
+  }
+  if (_invert) return cnt;
+  return cnt * 2;  // count the symmetrical elements too.
+}
+
+
+uint16_t DistanceTable::countBelow(float value)
+{
+  uint16_t cnt = 0;
+  for (uint16_t index = 0; index < _elements; index++)
+  {
+    float current = _distanceTable[index];
+    if (current < value) cnt++;
+    else if (_invert)
+    {
+      if (-current < value) cnt++;
+    }
+  }
+  if (_invert) return cnt;
+  return cnt * 2;  // count the symmetrical elements too.
 }
 
 
