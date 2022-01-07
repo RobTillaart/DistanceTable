@@ -62,9 +62,9 @@ unittest(test_constructor)
 
   DistanceTable dt2(2);
 
-  assertEqual(0, dt1.dimension());
-  assertEqual(1, dt1.elements());
-  assertEqual(4, dt1.memoryUsed());
+  assertEqual(0, dt2.dimension());
+  assertEqual(1, dt2.elements());
+  assertEqual(4, dt2.memoryUsed());
 
   DistanceTable dt11(11);
 
