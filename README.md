@@ -68,6 +68,23 @@ It ignores the invert flag, as invert would make the average 0.
 It skips all x == y pairs as these are 0.
 
 
+### Median
+
+from Wikipedia: Geometric median
+
+_In geometry, the Geometric Median (GM) of a discrete point set in a Euclidean space 
+is the point minimizing the sum of distances to the sample points._
+
+The function **minimumColumn()** is an approximation of GM as it assumes the GM must be
+in the set of points.
+
+- **float sumColumn(uint8_t x)** return sum of a column.
+- **float minimumColumn(uint8_t &x)** find (first) median point, 
+returns the sum of all distances in column(x).
+- **float maximumColumn(uint8_t &x)** find most extreme outlier.
+returns the sum of all distances in column(x).
+
+
 ### Count
 
 - **uint16_t count(float value, float epsilon = 0)** counts the number of occurrences of value. 
