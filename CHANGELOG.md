@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [0.3.4] - 2025-03-06
-- add sumColumn(), minimumColumn(), maximumColumn() and averageColumn()
+- add sumOfColumn(), minimumOfColumn(), maximumOfColumn() and averageOfColumn()
+- add geometricMedian(), minColumn(), maxColumn()
 - update readme.md
 - update unit test
 - minor edits
