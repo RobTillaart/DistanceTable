@@ -174,9 +174,9 @@ unittest(test_min_max_column)
   uint8_t x, y;
 
   fprintf(stderr, "CNT: %d\n", dt.count(30, 0.001));
-  fprintf(stderr, "MIN: %f\t", dt.minimumColumn(x));
+  fprintf(stderr, "MIN: %f\t", dt.minColumn(x));
   fprintf(stderr, "%d\t", x);
-  fprintf(stderr, "MAX: %f\t", dt.maximumColumn(x));
+  fprintf(stderr, "MAX: %f\t", dt.maxColumn(x));
   fprintf(stderr, "%d\t", x);
   fprintf(stderr, "\n");
 }
