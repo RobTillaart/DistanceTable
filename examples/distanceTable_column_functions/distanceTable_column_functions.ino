@@ -23,7 +23,11 @@ void setup()
 
   Serial.println("DistanceTable test 20x20: ");
   Serial.println("\n========================================\n");
+  Serial.print("Size:\t\t");
+  Serial.println(dt.dimension() * dt.dimension());
+  Serial.print("elements:\t");
   Serial.println(dt.elements());
+  Serial.print("memoryUsed:\t");
   Serial.println(dt.memoryUsed());
   Serial.println("\n========================================\n");
 
@@ -38,23 +42,36 @@ void setup()
 
   dt.dump();
 
+  for (int i = 0; i < 20; i++)
+  {
+    Serial.print(dt.sumOfColumn(i));
+    Serial.print("\t");
+  }
+  Serial.println();
+  for (int i = 0; i < 20; i++)
+  {
+    Serial.print(dt.averageOfColumn(i));
+    Serial.print("\t");
+  }
+  Serial.println();
+  Serial.println();
+
   uint8_t a = 0;
   float v1 = dt.minColumn(a);
   Serial.print("minColumn:\t");
-  Serial.println(a);
+  Serial.print(a);
   Serial.print("\t");
   Serial.println(v1);
-  Serial.println();
   delay(100);
 
   float v2 = dt.maxColumn(a);
   Serial.print("maxColumn:\t");
-  Serial.println(a);
+  Serial.print(a);
   Serial.print("\t");
   Serial.println(v2);
-  Serial.println();
   delay(100);
 
+  Serial.print("Ratio:\t\t\t");
   Serial.println(v1 / v2);
   Serial.println();
   delay(100);
