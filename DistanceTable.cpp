@@ -178,10 +178,9 @@ float DistanceTable::average()
 
 /////////////////////////////////////////////////////
 //
-//  MEDIAN (sort of)
+//  COLUMN FUNCTIONS
 //
-
-float DistanceTable::sumColumn(uint8_t x)
+float DistanceTable::sumOfColumn(uint8_t x)
 {
   float sum = 0;
   for (int y = 0; y < _dimension; y++)
@@ -191,14 +190,61 @@ float DistanceTable::sumColumn(uint8_t x)
   return sum;
 }
 
-float DistanceTable::minimumColumn(uint8_t &x)
+float DistanceTable::averageOfColumn(uint8_t x, bool skipSelf)
+{
+  if (skipSelf) return sumOfColumn(x) / (_dimension - 1);
+  return sumOfColumn(x) / _dimension;
+}
+
+float DistanceTable::minimumOfColumn(uint8_t x, bool skipSelf)
+{
+  float minimum = get(x, 0);
+  for (uint8_t y = 1; y < _dimension; y++)
+  {
+    if ((x == y) && skipSelf) continue;
+    float value = get(x,y);
+    if (value < minimum)
+    {
+      minimum = value;
+    }
+  }
+  return minimum;
+}
+
+
+float DistanceTable::maximumOfColumn(uint8_t x, bool skipSelf)
+{
+  float maximum = get(x, 0);
+  for (uint8_t y = 1; y < _dimension; y++)
+  {
+    if ((x == y) && skipSelf) continue;
+    float value = get(x,y);
+    if (value > maximum)
+    {
+      maximum = value;
+    }
+  }
+  return maximum;
+}
+
+
+/////////////////////////////////////////////////////
+//
+//  GEOMETRIC MEDIAN - EXPERIMENTAL
+//
+float DistanceTable::geometricMedian(uint8_t &x)
+{
+  return minColumn(x);
+}
+
+float DistanceTable::minColumn(uint8_t &x)
 {
   x = 0;
-  float minSum = sumColumn(x);
+  float minSum = sumOfColumn(x);
 
   for (uint8_t _x = 0; _x < _dimension; _x++)
   {
-    float sum = sumColumn(_x);
+    float sum = sumOfColumn(_x);
     if (sum < minSum)
     {
       x = _x;
@@ -208,15 +254,14 @@ float DistanceTable::minimumColumn(uint8_t &x)
   return minSum;
 }
 
-
-float DistanceTable::maximumColumn(uint8_t &x)
+float DistanceTable::maxColumn(uint8_t &x)
 {
   x = 0;
-  float maxSum = sumColumn(x);
+  float maxSum = sumOfColumn(x);
 
   for (uint8_t _x = 0; _x < _dimension; _x++)
   {
-    float sum = sumColumn(_x);
+    float sum = sumOfColumn(_x);
     if (sum > maxSum)
     {
       x = _x;

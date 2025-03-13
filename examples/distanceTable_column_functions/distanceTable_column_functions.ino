@@ -1,5 +1,5 @@
 //
-//    FILE: distanceTable_minimumColumn.ino
+//    FILE: distanceTable_column_functions.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: demo
 //    DATE: 2015-06-18
@@ -39,16 +39,16 @@ void setup()
   dt.dump();
 
   uint8_t a = 0;
-  float v1 = dt.minimumColumn(a);
-  Serial.print("minimumColumn:\t");
+  float v1 = dt.minColumn(a);
+  Serial.print("minColumn:\t");
   Serial.println(a);
   Serial.print("\t");
   Serial.println(v1);
   Serial.println();
   delay(100);
 
-  float v2 = dt.maximumColumn(a);
-  Serial.print("maximumColumn:\t");
+  float v2 = dt.maxColumn(a);
+  Serial.print("maxColumn:\t");
   Serial.println(a);
   Serial.print("\t");
   Serial.println(v2);
@@ -58,6 +58,19 @@ void setup()
   Serial.println(v1 / v2);
   Serial.println();
   delay(100);
+
+  Serial.println();
+  Serial.print("sumOfColumn(5):\t");
+  Serial.println(dt.sumOfColumn(5));
+  Serial.print("averageOfColumn(5):\t");
+  Serial.println(dt.averageOfColumn(5));
+  Serial.print("minimumOfColumn(5):\t");
+  Serial.println(dt.minimumOfColumn(5));
+  Serial.print("maximumOfColumn(5):\t");
+  Serial.println(dt.maximumOfColumn(5));
+  delay(100);
+
+  Serial.println("\ndone...");
 }
 
 

@@ -36,14 +36,24 @@ public:
   float    maximum(uint8_t &x, uint8_t &y);
   float    sum();
   float    average();
-  
-  //  GeoMetric Median
+
+
+  //  column functions
+  float   sumOfColumn(uint8_t x);
+  float   averageOfColumn(uint8_t x, bool skipSelf = false);
+  float   minimumOfColumn(uint8_t x, bool skipSelf = false);
+  float   maximumOfColumn(uint8_t x, bool skipSelf = false);
+
+
+  //  GeoMetric Median - EXPERIMENTAL
   //  see Wikipedia.
   //  this is a sort of GM search, there can be more than one
-  //       returns the first occurrence of the minimum column.
-  float   sumColumn(uint8_t x);
-  float   minimumColumn(uint8_t &x);
-  float   maximumColumn(uint8_t &x);
+  //      returns the first occurrence of the minimum column.
+  //      this is a point "closest" to all other points.
+  //  these three functions sweep over the whole table.
+  float   geometricMedian(uint8_t &x);
+  float   minColumn(uint8_t &x);  //  is same as geometricMedian()
+  float   maxColumn(uint8_t &x);  //  furthest away on average.
 
 
   //  epsilon allows 'almost equal' searches

@@ -16,19 +16,24 @@ Arduino library to store a symmetrical distance table in less memory.
 
 ## Description
 
-The DistanceTable library is a class that stores a symmetrical distance table 
+The DistanceTable library is a class that stores a **symmetrical** distance table
 which is typically N x N entries in less memory space. 
-It uses (N x (N-1))/2 ("in a triangle") as an euclidean distance table is 
-symmetrical around its main diagonal. 
+The class uses (N x (N-1))/2 ("in a triangle") as an euclidean distance table is 
+**symmetrical** around its main diagonal. 
 Furthermore as the main diagonal are all zero it does not need to be stored either.
 
-An ATMEL328 (Arduino) can store a 30 x 30 matrix = 900 floats in 1740 bytes, 
+An ATMEL328 (Arduino) can store a 30 x 30 matrix (= 900 floats) in 1740 bytes, 
 where it would take 900 x 4 = 3600 bytes.
 Within the 2K RAM of an Arduino one could store normally a 21 x 21 matrix (1764 bytes).
 The class therefore saves around 50% of RAM. 
 The price is performance as it takes more time to access the elements.
 
-#### Related
+The distance table can also be used to store the differences between x,y pairs.
+E.g difference in weight or voltage or air pressure or any unit as long as the 
+measurement is symmetrical.
+
+
+### Related
 
 - https://github.com/RobTillaart/SparseArray
 - https://github.com/RobTillaart/SparseMatrix
@@ -62,13 +67,29 @@ It skips all x == y pairs as these are 0.
 - **float maximum(uint8_t &x, uint8_t &y)** Returns the maximum and first occurrence in x and y. 
 It skips all x == y pairs as these are 0.
 - **float sum()** Returns the sum of the stored distances times 2 (== all distances)
-It ignores the invert flag, as invert would make the sum 0.  
+It ignores the invert flag, as invert would make the sum 0 (zero).
 - **float average()** Returns the average distance (== sum() / elements() ).
 It ignores the invert flag, as invert would make the average 0.
 It skips all x == y pairs as these are 0.
 
+Note: If you want the average of the whole table (including zeros) you need to use the formula
+```avg = dt.sum() / (dt.dimension() * dt.dimension());```
 
-### Median
+
+### Column functions
+
+If skipSelf is set to true in the functions, the function skips (x,x) which is by definition zero.
+
+- **float sumOfColumn(uint8_t x)** returns the sum of a column (or row as symmetrical).
+- **float averageOfColumn(uint8_t x, bool skipSelf = false)** returns the average of a column.
+- **float minimumOfColumn(uint8_t x, bool skipSelf = false)** returns minimum of a column.
+Use skipSelf to ignore (x,x) as this is 0.
+- **float maximumOfColumn(uint8_t x, bool skipSelf = false)** returns maximum of a column.
+
+
+### GeoMetric Median
+
+**EXPERIMENTAL**
 
 from Wikipedia: Geometric median
 
@@ -77,11 +98,14 @@ is the point minimizing the sum of distances to the sample points._
 
 The function **minimumColumn()** is an approximation of GM as it assumes the GM must be
 in the set of points.
+The other functions were added to make the set of column based functions complete.
 
-- **float sumColumn(uint8_t x)** return sum of a column.
-- **float minimumColumn(uint8_t &x)** find (first) median point, 
+- **float geometricMedian(uint8_t &x);** find (first) median point, 
 returns the sum of all distances in column(x).
-- **float maximumColumn(uint8_t &x)** find most extreme outlier.
+- **float minColumn(uint8_t &x)** find (first) median point, 
+returns the sum of all distances in column(x).
+Same as **geometricMedian()**.
+- **float maxColumn(uint8_t &x)** find most extreme outlier.
 returns the sum of all distances in column(x).
 
 
