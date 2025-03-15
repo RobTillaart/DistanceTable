@@ -35,7 +35,7 @@ This can be used e.g. when storing height differences, A is 100 higher than B,
 and B is -100 higher than A.
 
 
-### difference table
+### Difference table
 
 The distance table can also be used to store any difference between x, y pairs.
 E.g difference in weight, voltage, temperature or air pressure or any unit 
