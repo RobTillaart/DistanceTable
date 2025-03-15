@@ -130,12 +130,13 @@ As we are comparing floats the epsilon can set a margin for 'almost equal'. Defa
 - **uint16_t countBelow(float value)** counts the number of occurrences smaller than value.
 
 Note 1: these 3 numbers do not always add up exactly as **count()** uses an epsilon where the
-other two do not. 
+other two do not.  
 Note 2: the functions do not count the ```x == y``` diagonal.
-So if you want to count the values == 0.0 you should add **dimension()** as the diagonal == zeros.
+So if you want to count the values == 0.0 you should add **dimension()** as the diagonal == zeros.  
+Note 3: to count all negative numbers, use **countBelow(0.0)**,  
+Note 4: to count all non-negative numbers, use **count(0.0) + countAbove(0.0)**, Think greater or equal.  
+
 Behaviour might change in the future.
-Note 3: to count all negative numbers, use **countBelow(0.0)**, 
-Note 4: to count all non-negative numbers, use **count(0.0) + countAbove(0.0)**, Think greater or equal.
 
 
 ### Invert (experimental)
